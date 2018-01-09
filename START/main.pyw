@@ -67,7 +67,8 @@ ip=get_ip()
 
 root=Tkinter.Tk()
 if sys.platform =="win32":
-    root.iconbitmap("Grafiken\\Logo\\Logo.ico")
+    #root.iconbitmap("Grafiken\\Logo\\Logo.ico")
+    root.iconbitmap("ELW_Frontend/images/Logo.ico")
 
 
 

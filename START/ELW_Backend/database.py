@@ -33,8 +33,12 @@ class Database:
         self.cursor = self.connection.cursor()
 
         if new == 1:
-            self.cursor.execute("DROP TABLE bereitstellung")
-            self.cursor.execute("DROP TABLE name")
+            try:
+                self.cursor.execute("DROP TABLE bereitstellung")
+                self.cursor.execute("DROP TABLE name")
+            except Exception as e:
+                pass
+            
         
 
         self.sql_make_name= """
@@ -115,7 +119,8 @@ class Database:
         self.connection.commit()
 
         try:
-            self.br_name=self.name_querry()[0]
+            self.br_name=unicode(self.name_querry()[0],'utf-8')
+            print(self.br_name)
         except TypeError as e:
             self.br_name=""
   
@@ -245,8 +250,8 @@ class Database:
 #method to print the current content of the staging area to .csv file
     def print_to_file(self):
         #name=time.strftime("%Y-%b-%d-%H-%M", time.localtime())
-        name=time.strftime("%d%H%M%b%Y", time.localtime())
-        name=name+self.br_name+".csv"
+        self.br_name=unicode(self.name_querry()[0],'utf-8')
+        name=time.strftime("%d%H%M%b%Y", time.localtime())+self.br_name+".csv"
         content=self.read_current(False)
 
 
@@ -258,18 +263,15 @@ class Database:
             file.write("Rufname\t Organisation\t Typ\t Besatzung\n")
             for x in content:
                 file.write("{}\t{}\t{}\t{}/{}/{}\n".format(x[1],x[2],x[3],x[4],x[5],x[6]))
-        with open("sorted.csv", "w") as file2:
-            file2.write("Rufname\t Organisation\t Typ\t Besatzung\n")
-            for x in final_sort:
-                file2.write("{}\t{}\t{}\t{}/{}/{}\n".format(x[1],x[2],x[3],x[4],x[5],x[6]))
 
-        pdf_out=PDFgenerator(final_sort, self.br_name, time.strftime("%d%H%M%b%Y", time.localtime()))
+        pdf_out=PDFgenerator(final_sort, self.br_name, time.localtime())
         pdf_out.generate()
 
 
 #method to print the complete history of the staging area to .csv file
     def print_history(self):
-        name="Bereitstellungsraum_historie.csv"
+        self.br_name=unicode(self.name_querry()[0],'utf-8')
+        name=self.br_name+"_protokoll.csv"
         content=self.read_history();
 
         print(content)
@@ -277,6 +279,9 @@ class Database:
             file.write("Rufname\t Organisation\t Typ\t Fuehrung\t Ankunft\t Abfahrt\t Ziel\t Bemerkung\t Besatzung\n")
             for x in content:
                 file.write("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}/{}/{}\n".format(x[1],x[2],x[3],x[7],x[8],x[9],x[10],x[11],x[4],x[5],x[6]))
+
+        pdf_out=PDFgenerator(content, self.br_name, time.localtime())
+        pdf_out.history()
 
 
 #python wrapper for name querry:

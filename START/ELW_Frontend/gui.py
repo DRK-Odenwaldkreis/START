@@ -414,7 +414,7 @@ class GUI(Tkinter.Frame):
     def contact_window(self):
         t = Tkinter.Toplevel(self)
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         t.wm_title("Kontaktdaten")
         t.grab_set()
 
@@ -474,7 +474,7 @@ class GUI(Tkinter.Frame):
         w = Tkinter.Toplevel(self)
         w.wm_title("Manuelles Hinzufügen von Fahrzeugen")
         if sys.platform =="win32":
-            w.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            w.iconbitmap("ELW_Frontend/images/Logo.ico")
         def open_add_rd():
             w.destroy()
             self.add_window_rd()
@@ -496,7 +496,7 @@ class GUI(Tkinter.Frame):
     def add_window_rd(self):
         t = Tkinter.Toplevel(self)
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         t.config(bg="white")
         frame1=Tkinter.Frame(t)
         frame2=Tkinter.Frame(t)
@@ -725,7 +725,7 @@ class GUI(Tkinter.Frame):
         t = Tkinter.Toplevel(self)
         t.config(bg="red")
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         self.clear_contacts()
         
         frame1=Tkinter.Frame(t)
@@ -944,7 +944,7 @@ class GUI(Tkinter.Frame):
         t = Tkinter.Toplevel(self)
         t.config(bg="deep sky blue")
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         self.clear_contacts()
         
         frame1=Tkinter.Frame(t)
@@ -1113,7 +1113,7 @@ class GUI(Tkinter.Frame):
     def update_window(self):
         t = Tkinter.Toplevel(self)
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         t.wm_title("Update von gewähltem Fahzeug")
         #l = Tkinter.Label(t, text="This is window")
         #l.pack(side="top", fill="both", expand=True, padx=100, pady=100)
@@ -1732,7 +1732,7 @@ class GUI(Tkinter.Frame):
         t = Tkinter.Toplevel(self)
         t.focus()
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         t.wm_title("Auftrag für gewählte Fahzeuge")
         #l = Tkinter.Label(t, text="This is window")
         #l.pack(side="top", fill="both", expand=True, padx=100, pady=100)
@@ -1844,7 +1844,7 @@ class GUI(Tkinter.Frame):
     def group_window(self):
         t = Tkinter.Toplevel(self)
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         t.wm_title("Einheiten gruppieren")
         t.focus()
 
@@ -1993,7 +1993,7 @@ class GUI(Tkinter.Frame):
         t= Tkinter.Toplevel(self)
         t.wm_title("Einheiten verlassen Bereitstellungsraum")
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         t.focus()
         try:
             selected_item = self.issued_treeview.selection()
@@ -2194,7 +2194,7 @@ class GUI(Tkinter.Frame):
             t.destroy()
         t = Tkinter.Toplevel(self)
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         mid_frame = Tkinter.Frame(t)
         t.focus()
         t.attributes('-topmost', True)
@@ -2235,7 +2235,7 @@ class GUI(Tkinter.Frame):
 
         t = Tkinter.Toplevel(self)
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         mid_frame = Tkinter.Frame(t)
         t.focus()
         t.attributes('-topmost', True)
@@ -2289,7 +2289,7 @@ class GUI(Tkinter.Frame):
     def help_window(self):
         t = Tkinter.Toplevel(self)
         if sys.platform =="win32":
-            t.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            t.iconbitmap("ELW_Frontend/images/Logo.ico")
         plus_label= Tkinter.Label(t, text="Hinzufügen", font=("Calibri", 12))
         plus_erkl = Tkinter.Label(t, text="Manuelles Hinzufügen von Fahrzeugen zum Bereitstellungsraum", font=("Calibri", 12))
         bearb_label = Tkinter.Label(t, text="Bearbeiten", font=("Calibri", 12))
@@ -2299,9 +2299,9 @@ class GUI(Tkinter.Frame):
         aufl_label = Tkinter.Label(t, text="Auflösen", font=("Calibri", 12))
         aufl_erkl = Tkinter.Label(t, text="Auflösen einer taktischen Einheit", font=("Calibri", 12))
         druck_label = Tkinter.Label(t, text="Lagemeldung", font=("Calibri", 12))
-        druck_erkl = Tkinter.Label(t, text="Drucken aller im Bereitstellungsraum befindlichen Fahrzeuge in eine CSV Datei", font=("Calibri", 12))
+        druck_erkl = Tkinter.Label(t, text="Drucken aller im Bereitstellungsraum befindlichen Fahrzeuge in PDF und eine CSV Datei", font=("Calibri", 12))
         prot_label= Tkinter.Label(t, text="Protokoll", font=("Calibri", 12))
-        prot_erkl = Tkinter.Label(t, text="Drucken der bisherigen Historie des Bereitstellungsraum in ein CSV Datei", font=("Calibri",12))
+        prot_erkl = Tkinter.Label(t, text="Drucken der bisherigen Historie des Bereitstellungsraum in ein PDF und eine CSV Datei", font=("Calibri",12))
         auft_label = Tkinter.Label(t, text="Auftrag", font=("Calibri", 12))
         auft_erkl = Tkinter.Label(t, text="Einem Fahrzeug oder einer Einheit im Bereitstellungsraum einen Auftrag zuweisen", font=("Calibri", 12))
         verl_label = Tkinter.Label(t, text="Verlassen", font=("Calibri", 12))
@@ -2378,7 +2378,7 @@ class MyDialog:
 
         top = self.top = Tkinter.Toplevel(parent)
         if sys.platform =="win32":
-            top.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            top.iconbitmap("ELW_Frontend/images/Logo.ico")
 
         mid_frame = Tkinter.Frame(top)
 
@@ -2416,7 +2416,7 @@ class MyDialog:
     def no(self):
         topper = Tkinter.Toplevel(self.top)
         if sys.platform =="win32":
-            topper.iconbitmap("Grafiken\\Logo\\Logo.ico")
+            topper.iconbitmap("ELW_Frontend/images/Logo.ico")
         topper.attributes('-topmost', True)
         topper.wm_title("Bestätigen")
         topper.focus()

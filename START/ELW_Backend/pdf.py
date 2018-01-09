@@ -1,4 +1,5 @@
 from fpdf import FPDF
+import time
 
 
 class MyPDF(FPDF):
@@ -15,7 +16,7 @@ class MyPDF(FPDF):
 		self.set_font('Arial', '', 11)
 		self.cell(40, 10, 'Bereitstellungsraum:', ln=0)
 		self.cell(10, 10, self.name, ln=0)
-		self.cell(0,10, self.time, align='R', ln=1)
+		self.cell(0,10, time.strftime("%d%H%M%b%Y", self.time), align='R', ln=1)
 		self.ln(10)
 
 
@@ -52,7 +53,7 @@ class PDFgenerator:
 		pdf.cell(20, 10, 'von:', 0, 0)
 		pdf.cell(20, 10, header_name, ln=1)
 		pdf.cell(20, 10, 'Zeit:', 0, 0)
-		pdf.cell(20, 10, self.time, 0, 1)
+		pdf.cell(20, 10, time.strftime("%d%H%M%b%Y", self.time)+'  |  '+time.strftime("%d %b %Y %H:%M", self.time), 0, 1)
 
 		pdf.set_font('Arial', 'B' , 14)
 		pdf.ln(10)
@@ -92,5 +93,92 @@ class PDFgenerator:
 				pdf.cell(40, 10, i[3], 0, 0)
 				pdf.cell(0, 10, '{}/{}/{}'.format(i[4],i[5],i[6]), 0, 1)
 
-		pdf.output(self.time+self.name+".pdf")	
+		pdf.output(time.strftime("%d%H%M%b%Y", self.time)+self.name+".pdf")	
 
+	def history(self):
+		pdf=MyLandscape()
+		pdf.time=self.time
+		pdf.name=self.name
+		pdf.alias_nb_pages()
+		pdf.add_page(orientation='L')
+
+
+		pdf.set_font('Arial', 'B' , 14)
+
+		pdf.cell(20, 10, 'Protokoll:', 0, 1)
+
+		pdf.cell(50, 10, 'Funkrufname', 0, 0)
+		pdf.cell(40, 10, 'Organisation', 0, 0)
+		pdf.cell(20, 10, 'Typ', 0, 0)
+		pdf.cell(30, 10, 'Ankunft', 0, 0)
+		pdf.cell(30, 10, 'Abfahrt', 0, 0)#
+		pdf.cell(30, 10, 'Ziel', 0, 0)
+		pdf.cell(35, 10, 'Besatzung', 0, 0)
+		pdf.cell(50, 10, 'Bemerkung', 0, 1)
+
+		current_x =pdf.get_x()
+		current_y =pdf.get_y()
+
+		pdf.line(current_x, current_y, current_x+275, current_y)
+
+		pdf.set_font('Arial', '', 14)
+
+		for i in self.content:
+			if pdf.y + 10 > pdf.page_break_trigger:
+				pdf.set_font('Arial', 'B' , 14)
+
+				pdf.cell(20, 10, 'Protokoll:', 0, 1)
+
+				pdf.cell(50, 10, 'Funkrufname', 0, 0)
+				pdf.cell(35, 10, 'Organisation', 0, 0)
+				pdf.cell(20, 10, 'Typ', 0, 0)
+				pdf.cell(30, 10, 'Ankunft', 0, 0)
+				pdf.cell(35, 10, 'Abfahrt', 0, 0)#
+				pdf.cell(30, 10, 'Ziel', 0, 0)
+				pdf.cell(35, 10, 'Besatzung', 0, 0)
+				pdf.cell(50, 10, 'Bemerkung', 0, 1)
+
+				current_x =pdf.get_x()
+				current_y =pdf.get_y()
+
+				pdf.line(current_x, current_y, current_x+275, current_y)
+
+				pdf.set_font('Arial', '', 14)
+			else:
+				pdf.set_font('Arial', '', 10)		
+				pdf.cell(50, 10, i[1], 0, 0)
+				pdf.cell(40, 10, i[2], 0, 0)
+				pdf.cell(20, 10, i[3], 0, 0)
+				pdf.cell(30, 10, i[8][:-10], 0, 0)
+				pdf.cell(30, 10, i[9][:-10], 0, 0)#
+				pdf.cell(30, 10, i[10], 0, 0)
+				pdf.cell(35, 10, '{}/{}/{}'.format(i[4],i[5],i[6]), 0, 0)
+				pdf.cell(50, 10, i[11], 0, 1)
+
+		pdf.output(self.name+"_protokoll.pdf")
+
+
+aux=FPDF('P', 'mm', 'A4')
+
+class MyLandscape(FPDF):
+	time='zeit'
+	name='name'
+	
+
+	def header(self):
+		
+		self.set_font('Arial', '', 11)
+		self.cell(40, 10, 'Bereitstellungsraum:', ln=0)
+		self.cell(10, 10, self.name, ln=0)
+		self.cell(0,10, time.strftime("%d%H%M%b%Y", self.time), align='R', ln=1)
+		self.ln(10)
+
+
+	def footer(self):
+		self.set_y(-15)
+		self.set_font('Arial', '', 11)
+		self.cell(40,10, 'generiert durch START:QR', ln=0)
+
+		page= 'Seite %s/ {nb}' % self.page_no()
+
+		self.cell(0, 10, page, align='R')
