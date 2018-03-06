@@ -15,7 +15,7 @@ import py2exe
 
 setup(windows=[
 		{"script":"main.pyw",
- 		 "icon_resources": [(0,"Grafiken\\Logo\\Logo.ico")]
+ 		 "icon_resources": [(0,"ELW_Frontend/images/Logo.ico")]
 		}
 	]
 )
