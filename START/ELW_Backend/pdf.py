@@ -1,5 +1,17 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+#PDFOutput v 1.0
+
+#Copyright Philipp Scior philipp.scior@drk-forum.de
+
+#contains all routines to print 
+
+
+
 from fpdf import FPDF
 import time
+import os
 
 
 class MyPDF(FPDF):
@@ -13,7 +25,8 @@ class MyPDF(FPDF):
 
 
 	def header(self):
-		self.set_font('Arial', '', 11)
+		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		self.set_font('GNU', '', 11)
 		self.cell(40, 10, 'Bereitstellungsraum:', ln=0)
 		self.cell(10, 10, self.name, ln=0)
 		self.cell(0,10, time.strftime("%d%H%M%b%Y", self.time), align='R', ln=1)
@@ -22,7 +35,8 @@ class MyPDF(FPDF):
 
 	def footer(self):
 		self.set_y(-15)
-		self.set_font('Arial', '', 11)
+		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		self.set_font('GNU', '', 11)
 		self.cell(40,10, 'generiert durch START:QR', ln=0)
 
 		page= 'Seite %s/ {nb}' % self.page_no()
@@ -44,9 +58,10 @@ class PDFgenerator:
 		pdf.name=self.name
 		pdf.alias_nb_pages()
 		pdf.add_page()
+		pdf.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		pdf.add_font('GNU', 'B', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSansBold.ttf'), uni=True)
 
-
-		pdf.set_font('Arial', '', 14)
+		pdf.set_font('GNU', '', 14)
 
 		header_name='Bereitstellungsraum '+self.name
 
@@ -55,7 +70,7 @@ class PDFgenerator:
 		pdf.cell(20, 10, 'Zeit:', 0, 0)
 		pdf.cell(20, 10, time.strftime("%d%H%M%b%Y", self.time)+'  |  '+time.strftime("%d %b %Y %H:%M", self.time), 0, 1)
 
-		pdf.set_font('Arial', 'B' , 14)
+		pdf.set_font('GNU', 'B' , 14)
 		pdf.ln(10)
 		pdf.cell(20, 10, 'Einheiten in Bereitstellung:', 0, 1)
 
@@ -69,12 +84,12 @@ class PDFgenerator:
 
 		pdf.line(current_x, current_y, current_x+190, current_y)
 
-		pdf.set_font('Arial', '', 14)
+		pdf.set_font('GNU', '', 14)
 
 
 		for i in self.content:
 			if pdf.y + 10 > pdf.page_break_trigger:
-				pdf.set_font('Arial', 'B' , 14)
+				pdf.set_font('GNU', 'B' , 14)
 
 				pdf.cell(70, 10, 'Funkrufname', 0, 0)
 				pdf.cell(50, 10, 'Organisation', 0, 0)
@@ -86,7 +101,7 @@ class PDFgenerator:
 
 				pdf.line(current_x, current_y, current_x+190, current_y)
 
-				pdf.set_font('Arial', '', 14)
+				pdf.set_font('GNU', '', 14)
 			else:		
 				pdf.cell(70, 10, i[1], 0, 0)
 				pdf.cell(50, 10, i[2], 0, 0)
@@ -101,9 +116,11 @@ class PDFgenerator:
 		pdf.name=self.name
 		pdf.alias_nb_pages()
 		pdf.add_page(orientation='L')
-
-
-		pdf.set_font('Arial', 'B' , 14)
+		#print(os.path.join(os.path.dirname(os.path.abspath(__file__)),'DejaVuSans.ttf'))
+		
+		pdf.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		pdf.add_font('GNU', 'B', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSansBold.ttf'), uni=True)
+		pdf.set_font('GNU', 'B' , 14)
 
 		pdf.cell(20, 10, 'Protokoll:', 0, 1)
 
@@ -121,11 +138,11 @@ class PDFgenerator:
 
 		pdf.line(current_x, current_y, current_x+275, current_y)
 
-		pdf.set_font('Arial', '', 14)
+		pdf.set_font('GNU', '', 14)
 
 		for i in self.content:
 			if pdf.y + 10 > pdf.page_break_trigger:
-				pdf.set_font('Arial', 'B' , 14)
+				pdf.set_font('GNU', 'B' , 14)
 
 				pdf.cell(20, 10, 'Protokoll:', 0, 1)
 
@@ -143,9 +160,10 @@ class PDFgenerator:
 
 				pdf.line(current_x, current_y, current_x+275, current_y)
 
-				pdf.set_font('Arial', '', 14)
+				pdf.set_font('GNU', '', 14)
 			else:
-				pdf.set_font('Arial', '', 10)		
+
+				pdf.set_font('GNU', '', 10)		
 				pdf.cell(50, 10, i[1], 0, 0)
 				pdf.cell(40, 10, i[2], 0, 0)
 				pdf.cell(20, 10, i[3], 0, 0)
@@ -166,7 +184,7 @@ class MyLandscape(FPDF):
 	
 
 	def header(self):
-		
+		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
 		self.set_font('Arial', '', 11)
 		self.cell(40, 10, 'Bereitstellungsraum:', ln=0)
 		self.cell(10, 10, self.name, ln=0)
@@ -176,7 +194,8 @@ class MyLandscape(FPDF):
 
 	def footer(self):
 		self.set_y(-15)
-		self.set_font('Arial', '', 11)
+		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		self.set_font('GNU', '', 11)
 		self.cell(40,10, 'generiert durch START:QR', ln=0)
 
 		page= 'Seite %s/ {nb}' % self.page_no()
