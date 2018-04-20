@@ -13,6 +13,8 @@ from fpdf import FPDF
 import time
 import os
 
+FreeSans=os.path.join(os.getcwd(), 'ELW_Backend/FreeSans.ttf')   
+FreeSansBold = os.path.join(os.getcwd(), 'ELW_Backend/FreeSansBold.ttf')
 
 class MyPDF(FPDF):
 
@@ -25,7 +27,7 @@ class MyPDF(FPDF):
 
 
 	def header(self):
-		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		self.add_font('GNU', '', FreeSans, uni=True)
 		self.set_font('GNU', '', 11)
 		self.cell(40, 10, 'Bereitstellungsraum:', ln=0)
 		self.cell(10, 10, self.name, ln=0)
@@ -35,7 +37,7 @@ class MyPDF(FPDF):
 
 	def footer(self):
 		self.set_y(-15)
-		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		self.add_font('GNU', '', FreeSans, uni=True)
 		self.set_font('GNU', '', 11)
 		self.cell(40,10, 'generiert durch START:QR', ln=0)
 
@@ -58,8 +60,8 @@ class PDFgenerator:
 		pdf.name=self.name
 		pdf.alias_nb_pages()
 		pdf.add_page()
-		pdf.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
-		pdf.add_font('GNU', 'B', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSansBold.ttf'), uni=True)
+		pdf.add_font('GNU', '', FreeSans, uni=True)
+		pdf.add_font('GNU', 'B', FreeSansBold, uni=True)
 
 		pdf.set_font('GNU', '', 14)
 
@@ -112,14 +114,15 @@ class PDFgenerator:
 
 	def history(self):
 		pdf=MyLandscape()
+		print(FreeSans)
 		pdf.time=self.time
 		pdf.name=self.name
 		pdf.alias_nb_pages()
 		pdf.add_page(orientation='L')
 		#print(os.path.join(os.path.dirname(os.path.abspath(__file__)),'DejaVuSans.ttf'))
 		
-		pdf.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
-		pdf.add_font('GNU', 'B', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSansBold.ttf'), uni=True)
+		pdf.add_font('GNU', '', FreeSans, uni=True)
+		pdf.add_font('GNU', 'B', FreeSansBold, uni=True)
 		pdf.set_font('GNU', 'B' , 14)
 
 		pdf.cell(20, 10, 'Protokoll:', 0, 1)
@@ -184,7 +187,8 @@ class MyLandscape(FPDF):
 	
 
 	def header(self):
-		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		print(FreeSans)
+		self.add_font('GNU', '', FreeSans, uni=True)
 		self.set_font('Arial', '', 11)
 		self.cell(40, 10, 'Bereitstellungsraum:', ln=0)
 		self.cell(10, 10, self.name, ln=0)
@@ -194,7 +198,7 @@ class MyLandscape(FPDF):
 
 	def footer(self):
 		self.set_y(-15)
-		self.add_font('GNU', '', os.path.join(os.path.dirname(os.path.abspath(__file__)),'FreeSans.ttf'), uni=True)
+		self.add_font('GNU', '', FreeSans, uni=True)
 		self.set_font('GNU', '', 11)
 		self.cell(40,10, 'generiert durch START:QR', ln=0)
 
