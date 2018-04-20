@@ -1199,7 +1199,7 @@ class GUI(Tkinter.Frame):
                 ankunft_label = Tkinter.Label(frame5, text = "Ankunftzeit:")
                 #ankunft_label.config(bg="white")
                 ankunft_entry = Tkinter.Entry(frame5)
-                ankunft_entry.insert(0, datetime.datetime.now())
+                #ankunft_entry.insert(0, datetime.datetime.now())
                 ankunft_label.grid(row = 0, column = 0, sticky = Tkinter.W)
                 ankunft_entry.grid(row = 0, column = 1, padx=(0,100))
 
@@ -1363,7 +1363,7 @@ class GUI(Tkinter.Frame):
                 ankunft_label = Tkinter.Label(frame5, text = "Ankunftzeit:")
                 #ankunft_label.config(bg="white")
                 ankunft_entry = Tkinter.Entry(frame5)
-                ankunft_entry.insert(0, datetime.datetime.now())
+                #ankunft_entry.insert(0, datetime.datetime.now())
                 ankunft_label.grid(row = 0, column = 0, sticky = Tkinter.W)
                 ankunft_entry.grid(row = 0, column = 1, padx=(0,100))
 
@@ -1511,7 +1511,7 @@ class GUI(Tkinter.Frame):
                 ankunft_label = Tkinter.Label(frame5, text = "Ankunftzeit:")
                 #ankunft_label.config(bg="white")
                 ankunft_entry = Tkinter.Entry(frame5)
-                ankunft_entry.insert(0, datetime.datetime.now())
+                #ankunft_entry.insert(0, datetime.datetime.now())
                 ankunft_label.grid(row = 0, column = 0, sticky = Tkinter.W)
                 ankunft_entry.grid(row = 0, column = 1, padx=(0,100))
 
