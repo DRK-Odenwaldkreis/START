@@ -23,6 +23,8 @@ class Database_error(Exception):
 
 class Database:
 
+    print_list = []
+
 # Constructor
     def __init__(self,new):
 
@@ -154,6 +156,14 @@ class Database:
     def remove(self,tupel2):
         name=(tupel2[0],)
         rest=(tupel2[1], tupel2[2], tupel2[3], tupel2[0])
+
+        unit = self.single(name)
+        print(unit)
+        if unit is None:
+            pass
+        else:
+            entry = [unit[1], unit[2], unit[3], unit[7], unit[9]]
+            self.print_list.append(entry)
         self.cursor.execute("INSERT INTO history(id,f_name, organisation, f_typ, zf, gf, helfer, fuehrung, ankunft, abfahrt, ziel, bemerkung) SELECT NULL, f_name, organisation, f_typ, zf, gf, helfer, fuehrung, ankunft, ?, ?, ? FROM bereitstellung WHERE f_name=?", rest)
         self.cursor.execute("DELETE FROM bereitstellung WHERE f_name=?", name)
         self.connection.commit()
@@ -201,14 +211,32 @@ class Database:
             raise Database_error("FEHLER: Fahrzeug mit diesem Rufnamen ist bereits im BR vorhanden \n Kontaktieren Sie die EAL!")
         self.connection.commit()
 
-#wrapper set the set "auftrag" to true, showing that the unit has a assignment, espects only the callsign as input
+#wrapper set the set "auftrag" to true, showing that the unit has a assignment, also append unit to printlist. Expects only the callsign as input
     def set_assignment(self, name):
         tupel=(name,)
         try:
             self.cursor.execute("UPDATE bereitstellung SET auftrag=1 WHERE f_name=?", tupel)
+            unit = self.single(tupel)
+            print(unit)
+            if unit is None:
+                pass
+            else:
+                entry = [unit[1], unit[2], unit[3], unit[7], unit[9]]
+                self.print_list.append(entry)
+
         except Exception as e:
             raise Database_error("FEHLER: Fahrzeug nicht vorhanden?")
         self.connection.commit()
+
+#wrapper to print the orders for the assigned units, expects a tupel with destination and remarks
+    def print_orders(self, tupel):
+        cont_sort=sorted(self.print_list, key= lambda eintrag: eintrag[0])
+        final_sort=sorted(self.print_list, key= lambda eintrag: eintrag[1])
+
+        pdf_out=PDFgenerator(final_sort, self.br_name, time.localtime())
+        pdf_out.orders(tupel[0], tupel[1])
+        self.print_list=[] 
+
 
 #wrapper make a querry for one single entry in the database, expects a tupel with one entry (callsign) as input
     def single(self, tupel):

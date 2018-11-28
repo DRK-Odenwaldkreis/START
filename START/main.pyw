@@ -21,7 +21,7 @@ import sys
 
 #redirects all output to a logfile. Necessary for using the .exe in Windows
 #without producing error-logs
-#sys.stdout = open('logfile.log', 'a')
+sys.stdout = open('logfile.log', 'a')
 sys.stderr = open('logfile.log', 'a')
 
 # the queues for communicating between http server and gui

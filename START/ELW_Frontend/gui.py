@@ -1753,7 +1753,7 @@ class GUI(Tkinter.Frame):
         ziel_entry.focus()
         ziel_label.grid(row = 0, column = 0, sticky = Tkinter.W)
         ziel_entry.grid(row = 0, column = 1, sticky = Tkinter.W)
-        bemerkung_label = Tkinter.Label(t, text = "Bemerkungen:")
+        bemerkung_label = Tkinter.Label(t, text = "Beschreibung:")
         bemerkung_entry = Tkinter.Text(t, height=5, width=40)
         bemerkung_label.grid(row = 1, column = 0, sticky = Tkinter.W)
         bemerkung_entry.grid(row = 1, column = 1, columnspan=2)
@@ -1797,7 +1797,9 @@ class GUI(Tkinter.Frame):
                         except:
                             pass
                         up_and_del(upper)
+                    self.Bereitstellungsraum.print_orders((ziel_entry.get(),bemerkung_entry.get("1.0",'end-1c')))
                     t.destroy()
+
             except Input_error as e:
                 error=Tkinter.Toplevel(t)
                 error.wm_title("FEHLER")
